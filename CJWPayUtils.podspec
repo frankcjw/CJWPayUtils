@@ -2,14 +2,14 @@ Pod::Spec.new do |s|
   s.name         = 'CJWPayUtils'
   s.version      = '1.0.0'
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.homepage     = 'http://www.cenjiawen.com'
+  s.homepage     = 'https://github.com/frankcjw/'
   s.author       = { "frank" => "fk911c@gmail.com" }
   s.summary      = 'noting'
 
   s.platform     =  :ios, '8.0'
-  s.source       = { :git => "https://github.com/frankcjw/CJWUtilsS.git"  }
+  s.source       = { :git => "https://github.com/frankcjw/CJWPayUtils.git"  }
   s.exclude_files = 'CJWPayUtils-Bridging-Header.h'
-  s.source_files  = "Classes", "CJWPayUtils/fw/**/*.*","CJWPayUtils/CJWPayOrder.*","CJWPayUtils/CJWPayUtils.*","CJWPayUtils/*.h","CJWPayUtils/*.m"
+  s.source_files  = "CJWPayUtils/CJWPayOrder.{h,m}","CJWPayUtils/CJWPayUtils.{h,m}","CJWPayUtils/*.{h,m}"
 
   #,"CJWPayUtils/openssl/**/*.*","CJWPayUtils/Util/**/*.*"
   s.ios.vendored_frameworks = 'CJWPayUtils/AlipaySDK.framework'

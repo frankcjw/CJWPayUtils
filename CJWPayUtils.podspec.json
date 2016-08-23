@@ -1,0 +1,76 @@
+{
+  "name": "CJWPayUtils",
+  "version": "1.0.0",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "homepage": "https://github.com/frankcjw/",
+  "authors": {
+    "frank": "fk911c@gmail.com"
+  },
+  "summary": "noting",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source": {
+    "git": "https://github.com/frankcjw/CJWPayUtils.git"
+  },
+  "exclude_files": "CJWPayUtils-Bridging-Header.h",
+  "source_files": [
+    "CJWPayUtils/CJWPayOrder.{h,m}",
+    "CJWPayUtils/CJWPayUtils.{h,m}",
+    "CJWPayUtils/*.{h,m}"
+  ],
+  "ios": {
+    "vendored_frameworks": "CJWPayUtils/AlipaySDK.framework"
+  },
+  "frameworks": [
+    "UIKit",
+    "Foundation",
+    "CoreGraphics",
+    "CoreText",
+    "QuartzCore",
+    "CoreTelephony",
+    "SystemConfiguration",
+    "CFNetwork",
+    "CoreMotion"
+  ],
+  "requires_arc": true,
+  "resources": [
+    "CJWPayUtils/AlipaySDK.bundle",
+    "CJWPayUtils/AlipaySDK.framework"
+  ],
+  "vendored_libraries": [
+    "CJWPayUtils/libWeChatSDK.a",
+    "CJWPayUtils/libUPPayPlugin.a"
+  ],
+  "libraries": [
+    "c++",
+    "z",
+    "c",
+    "sqlite3.0",
+    "stdc++.6.0.9"
+  ],
+  "xcconfig": {
+    "OTHER_LDFLAGS": "-ObjC",
+    "ENABLE_BITCODE": "NO"
+  },
+  "subspecs": [
+    {
+      "name": "OpenSSL",
+      "preserve_paths": "CJWPayUtils/openssl/*.h",
+      "vendored_libraries": [
+        "CJWPayUtils/libcrypto.a",
+        "CJWPayUtils/libssl.a"
+      ],
+      "libraries": [
+        "ssl",
+        "crypto"
+      ],
+      "xcconfig": {
+        "HEADER_SEARCH_PATHS": "${PODS_ROOT}/CJWPayUtils/CJWPayUtils/openssl/*.h"
+      }
+    }
+  ]
+}
