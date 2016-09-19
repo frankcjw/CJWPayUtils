@@ -25,6 +25,11 @@
 
 @end
 
+@implementation CJWWXPayInfo
+
+
+@end
+
 @implementation CJWPayUtils
 
 
@@ -34,6 +39,29 @@
 //    NSLog(@"key %@",_alipayInfo.privateKey);
 }
 
+
+-(void)setupWXPay:(CJWWXPayInfo *)info{
+    [WXApi registerApp:info.wxid withDescription:@"fuck"];
+}
+
+
+-(void)payByWeChat:(NSString *)appid noncestr:(NSString *)noncestr package:(NSString *)package partnerid:(NSString *)partnerid prepayid:(NSString *)prepayid sign:(NSString *)sign timestamp:(NSString *)timestamp {
+    UInt32 time = [[NSNumber alloc] initWithInt:timestamp.intValue].unsignedIntValue;
+    PayReq *req = [[PayReq alloc] init];
+    req.partnerId = partnerid;
+    req.prepayId = prepayid;
+    req.nonceStr = noncestr;
+    req.timeStamp = time;
+    req.package = package;
+    req.sign = sign;
+    BOOL flag = [WXApi sendReq:req];
+    if (flag) {
+        NSLog(@"paying");
+    }else{
+        NSLog(@"pay fail");
+    }
+
+}
 
 -(void)payByAliay{
     CJWPayOrder* order = [CJWPayOrder new];
@@ -202,6 +230,30 @@
     return resultStr;
 }
 
+-(void)processURL:(NSURL *)url{
+    BOOL flag = [WXApi handleOpenURL:url delegate:self];
+    NSLog(@"wechat pay %s",flag?"suc":"fai");
+}
 
+// MARK: - 微信支付回调
+-(void)onReq:(BaseReq *)req{
+    NSLog(@"on req");
+}
+
+-(void)onResp:(BaseResp *)resp{
+    NSLog(@"on resp");
+    if ([resp isKindOfClass:[PayResp class]]) {
+        PayResp *reponse = (PayResp*)resp;
+        switch (reponse.errCode) {
+            case WXSuccess:
+                NSLog(@"wechat pay success");
+                break;
+                
+            default:
+                NSLog(@"wechat pay fail");
+                break;
+        }
+    }
+}
 
 @end

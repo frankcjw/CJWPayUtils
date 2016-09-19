@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
- 
+#import "WXApi.h"
 
 @interface CJWPayAlipayInfo : NSObject
 
@@ -29,7 +29,19 @@
 
 @end
 
-@interface CJWPayUtils : NSObject
+
+@interface CJWWXPayInfo : NSObject
+
+@property (copy, nonatomic) NSString *wxid;//可选
+
+//@property (strong, nonatomic) NSString *appScheme;
+//@property (strong, nonatomic) NSString *appScheme;
+//@property (strong, nonatomic) NSString *appScheme;
+//@property (strong, nonatomic) NSString *appScheme;
+
+@end
+
+@interface CJWPayUtils : NSObject <WXApiDelegate>
 
 
 @property (nonatomic, strong) CJWPayAlipayInfo *alipayInfo;
@@ -43,6 +55,7 @@ typedef NS_ENUM (NSInteger,CJWPayType){
 
 
 -(void)setupAlipay:(CJWPayAlipayInfo *)info;
+-(void)setupWXPay:(CJWWXPayInfo *)info;
 
 -(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail;
 
