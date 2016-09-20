@@ -26,10 +26,13 @@
 		010201F91D6434BC0079835F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 010201F81D6434BC0079835F /* libc++.tbd */; };
 		010201FB1D6434C00079835F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 010201FA1D6434C00079835F /* libz.tbd */; };
 		010202611D6434E60079835F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 010201FD1D6434E60079835F /* AlipaySDK.bundle */; };
-		010202621D6434E60079835F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010201FE1D6434E60079835F /* AlipaySDK.framework */; };
 		010A02D71D65A9B90064BF15 /* CJWPayOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 010A02D61D65A9B90064BF15 /* CJWPayOrder.m */; };
 		010A02DB1D6AA2A30064BF15 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A02D81D6AA2A30064BF15 /* libWeChatSDK.a */; };
 		010A02DD1D6AA2ED0064BF15 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 010A02DC1D6AA2ED0064BF15 /* libsqlite3.0.tbd */; };
+		01662FF41D91316D00F0898F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01662FF11D91316D00F0898F /* AlipaySDK.framework */; };
+		01662FFC1D91354200F0898F /* CJWAliOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 01662FFB1D91354200F0898F /* CJWAliOrder.m */; };
+		016630021D9136CF00F0898F /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 016630011D9136CF00F0898F /* Order.m */; };
+		016630041D91378800F0898F /* CJWSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016630031D91378800F0898F /* CJWSwift.swift */; };
 		017113C91D65671700FD7E18 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113B91D65671700FD7E18 /* base64.m */; };
 		017113CA1D65671700FD7E18 /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113BC1D65671700FD7E18 /* DataSigner.m */; };
 		017113CB1D65671700FD7E18 /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113BE1D65671700FD7E18 /* DataVerifier.m */; };
@@ -40,6 +43,7 @@
 		017113D01D65671700FD7E18 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113C81D65671700FD7E18 /* RSADataVerifier.m */; };
 		0171141F1D65677B00FD7E18 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171141D1D65677B00FD7E18 /* libcrypto.a */; };
 		017114201D65677B00FD7E18 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171141E1D65677B00FD7E18 /* libssl.a */; };
+		01DFBC5D1D9161430002E348 /* CJWOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DFBC5C1D9161430002E348 /* CJWOrder.swift */; };
 		B9E83400C36975B77B63AB59 /* Pods_CJWPayUtilsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D59E448CBE3C01ED21872F6C /* Pods_CJWPayUtilsTests.framework */; };
 		DEAD3AC426DB0D4FEB751F9B /* Pods_CJWPayUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BF11629830AB15D51545CE /* Pods_CJWPayUtils.framework */; };
 /* End PBXBuildFile section */
@@ -80,13 +84,18 @@
 		010201FA1D6434C00079835F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		010201FC1D6434E40079835F /* CJWPayUtils-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CJWPayUtils-Bridging-Header.h"; sourceTree = "<group>"; };
 		010201FD1D6434E60079835F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		010201FE1D6434E60079835F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		010A02D51D65A9B90064BF15 /* CJWPayOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJWPayOrder.h; sourceTree = "<group>"; };
 		010A02D61D65A9B90064BF15 /* CJWPayOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJWPayOrder.m; sourceTree = "<group>"; };
 		010A02D81D6AA2A30064BF15 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		010A02D91D6AA2A30064BF15 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		010A02DA1D6AA2A30064BF15 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		010A02DC1D6AA2ED0064BF15 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		01662FF11D91316D00F0898F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		01662FFA1D91354200F0898F /* CJWAliOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJWAliOrder.h; sourceTree = "<group>"; };
+		01662FFB1D91354200F0898F /* CJWAliOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJWAliOrder.m; sourceTree = "<group>"; };
+		016630001D9136CF00F0898F /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		016630011D9136CF00F0898F /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		016630031D91378800F0898F /* CJWSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJWSwift.swift; sourceTree = "<group>"; };
 		017113B81D65671700FD7E18 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		017113B91D65671700FD7E18 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
 		017113BA1D65671700FD7E18 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -181,6 +190,7 @@
 		0171141C1D65677500FD7E18 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		0171141D1D65677B00FD7E18 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		0171141E1D65677B00FD7E18 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		01DFBC5C1D9161430002E348 /* CJWOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJWOrder.swift; sourceTree = "<group>"; };
 		03BF11629830AB15D51545CE /* Pods_CJWPayUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CJWPayUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41856ACADE2B67511BC10CA0 /* Pods-CJWPayUtilsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJWPayUtilsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CJWPayUtilsTests/Pods-CJWPayUtilsTests.release.xcconfig"; sourceTree = "<group>"; };
 		B200F2DDAF4D593DD0463746 /* Pods-CJWPayUtils.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJWPayUtils.release.xcconfig"; path = "Pods/Target Support Files/Pods-CJWPayUtils/Pods-CJWPayUtils.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,13 +206,13 @@
 			files = (
 				010A02DD1D6AA2ED0064BF15 /* libsqlite3.0.tbd in Frameworks */,
 				010201FB1D6434C00079835F /* libz.tbd in Frameworks */,
+				01662FF41D91316D00F0898F /* AlipaySDK.framework in Frameworks */,
 				010201F91D6434BC0079835F /* libc++.tbd in Frameworks */,
 				010A02DB1D6AA2A30064BF15 /* libWeChatSDK.a in Frameworks */,
 				010201F71D6434B40079835F /* CoreMotion.framework in Frameworks */,
 				010201F51D6434B00079835F /* CFNetwork.framework in Frameworks */,
 				010201F31D6434A90079835F /* SystemConfiguration.framework in Frameworks */,
 				017114201D65677B00FD7E18 /* libssl.a in Frameworks */,
-				010202621D6434E60079835F /* AlipaySDK.framework in Frameworks */,
 				0171141F1D65677B00FD7E18 /* libcrypto.a in Frameworks */,
 				010201F11D6434A30079835F /* CoreTelephony.framework in Frameworks */,
 				010201EF1D64349D0079835F /* QuartzCore.framework in Frameworks */,
@@ -259,21 +269,27 @@
 		010201C51D6434730079835F /* CJWPayUtils */ = {
 			isa = PBXGroup;
 			children = (
+				01662FF01D91316D00F0898F /* AliLib */,
 				010201FD1D6434E60079835F /* AlipaySDK.bundle */,
-				010201FE1D6434E60079835F /* AlipaySDK.framework */,
 				01014EE01D644BB40035131D /* CJWPayUtils.h */,
 				01014EE11D644BB40035131D /* CJWPayUtils.m */,
 				010A02D51D65A9B90064BF15 /* CJWPayOrder.h */,
 				010A02D61D65A9B90064BF15 /* CJWPayOrder.m */,
+				016630001D9136CF00F0898F /* Order.h */,
+				016630011D9136CF00F0898F /* Order.m */,
 				0171141D1D65677B00FD7E18 /* libcrypto.a */,
 				0171141E1D65677B00FD7E18 /* libssl.a */,
 				010A02D81D6AA2A30064BF15 /* libWeChatSDK.a */,
 				010A02D91D6AA2A30064BF15 /* WXApi.h */,
 				010A02DA1D6AA2A30064BF15 /* WXApiObject.h */,
+				016630031D91378800F0898F /* CJWSwift.swift */,
+				01DFBC5C1D9161430002E348 /* CJWOrder.swift */,
 				017113D11D65677500FD7E18 /* openssl */,
 				017113B71D65671700FD7E18 /* Util */,
 				010201C61D6434730079835F /* AppDelegate.swift */,
 				010201C81D6434730079835F /* ViewController.swift */,
+				01662FFA1D91354200F0898F /* CJWAliOrder.h */,
+				01662FFB1D91354200F0898F /* CJWAliOrder.m */,
 				010201CA1D6434730079835F /* Main.storyboard */,
 				010201CD1D6434730079835F /* Assets.xcassets */,
 				010201CF1D6434730079835F /* LaunchScreen.storyboard */,
@@ -290,6 +306,14 @@
 				010201DD1D6434730079835F /* Info.plist */,
 			);
 			path = CJWPayUtilsTests;
+			sourceTree = "<group>";
+		};
+		01662FF01D91316D00F0898F /* AliLib */ = {
+			isa = PBXGroup;
+			children = (
+				01662FF11D91316D00F0898F /* AlipaySDK.framework */,
+			);
+			path = AliLib;
 			sourceTree = "<group>";
 		};
 		016E93DB9C1D6F6454209D85 /* Frameworks */ = {
@@ -620,12 +644,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01662FFC1D91354200F0898F /* CJWAliOrder.m in Sources */,
 				017113C91D65671700FD7E18 /* base64.m in Sources */,
+				016630041D91378800F0898F /* CJWSwift.swift in Sources */,
 				017113CD1D65671700FD7E18 /* NSDataEx.m in Sources */,
 				017113CC1D65671700FD7E18 /* MD5DataSigner.m in Sources */,
+				016630021D9136CF00F0898F /* Order.m in Sources */,
 				017113D01D65671700FD7E18 /* RSADataVerifier.m in Sources */,
 				01014EE21D644BB40035131D /* CJWPayUtils.m in Sources */,
 				017113CA1D65671700FD7E18 /* DataSigner.m in Sources */,
+				01DFBC5D1D9161430002E348 /* CJWOrder.swift in Sources */,
 				017113CF1D65671700FD7E18 /* RSADataSigner.m in Sources */,
 				017113CE1D65671700FD7E18 /* openssl_wrapper.m in Sources */,
 				010201C91D6434730079835F /* ViewController.swift in Sources */,
@@ -766,6 +794,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CJWPayUtils",
+					"$(PROJECT_DIR)/CJWPayUtils/AliLib",
 				);
 				INFOPLIST_FILE = CJWPayUtils/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -797,6 +826,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CJWPayUtils",
+					"$(PROJECT_DIR)/CJWPayUtils/AliLib",
 				);
 				INFOPLIST_FILE = CJWPayUtils/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

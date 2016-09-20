@@ -5,25 +5,14 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/frankcjw/'
   s.author       = { "frank" => "fk911c@gmail.com" }
   s.summary      = 'noting'
-
   s.platform     =  :ios, '8.0'
   s.source       = { :git => "https://github.com/frankcjw/CJWPayUtils.git"  }
   s.exclude_files = 'CJWPayUtils-Bridging-Header.h'
-  s.source_files  = "CJWPayUtils/CJWPayOrder.{h,m}","CJWPayUtils/CJWPayUtils.{h,m}","CJWPayUtils/*.{h,m}"
-
-  #,"CJWPayUtils/openssl/**/*.*","CJWPayUtils/Util/**/*.*"
+  s.source_files  = "CJWPayUtils/CJWPayOrder.{h,m}","CJWPayUtils/CJWPayUtils.{h,m}","CJWPayUtils/*.{h,m,swift}"
   s.ios.vendored_frameworks = 'CJWPayUtils/AlipaySDK.framework'
-
-  #s.preserve_paths = 'CJWPayUtils/openssl/*.h'
-
-
   s.frameworks   =  'UIKit',"Foundation","CoreGraphics","CoreText","QuartzCore","CoreTelephony","SystemConfiguration","CFNetwork","CoreMotion"
-
   s.requires_arc = true
   s.resource = 'CJWPayUtils/AlipaySDK.bundle','CJWPayUtils/AlipaySDK.framework'
-
-  # ,"ENABLE_BITCODE" =>'NO'
-
   s.vendored_libraries = "CJWPayUtils/libWeChatSDK.a","CJWPayUtils/libUPPayPlugin.a"
   s.libraries = "c++","z","c","sqlite3.0","stdc++.6.0.9"
 
