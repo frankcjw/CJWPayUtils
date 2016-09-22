@@ -10,6 +10,7 @@
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
 
+typedef void (^CJWPayBlock)();
 
 
 #define PRIVATE_KEY @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKGrVXJpc3MbZBbBpbBFYZj8a6+Z3FYGH7CtjVKB8FvsTswMr8o4F0jsurWRcDMoVNgIh3+HilBDQSIfDxliAWbCENK0XMwJOriJE31L4FHbtTGLo5jf2hf9qMMhzCCqZTj/lRlnU9GPIBT39l4QSX34RUELrgp3U8ugCzB430yRAgMBAAECgYB0CQM1MRaZ4Wj/JFIFqGaaZWHtEWOhopeQOaCbPYQEliEgN2Lco1GjF7YSp6Z+MU5kGAsYr3HIldzj3qL5tuwFbs7PePhoSdQxLiM5b0fzX0+B2ABqZfllUfN+QEJdiqqWRhG11xoS0hOqHcJQKFKWLy5ADioMBh7k739NPTgPIQJBANGY1k2ubws17ssjSPTfy063eqzYPCjo6RcJUIcgGZtKthyDD9Vtu4H4RnV6jFUJ7qAylE9yyNkyWAwdebJRVMUCQQDFdiJNn/pBOtYo4+r2ad2DeROZyIIXSOWbJ2txfco6oZj9kG6veSmGBJJMS/WMxuYkDVLV18dptxypE5QHR41dAkEAyORD65rYZhdgdKWyRLrH4//qfgaXyuJKn0DXRVyYDocSe8uG/ps5kL5F0k4OeWeWp0czbd7n8X3WdG4/+ZEIvQJAaKikpeAVFF3LBQFImDKkZfrWmLvdt9m7WPEb0ZuKhGkCXeMfx4HAsHfb0vSvwV3qvVEShqVH3JBhcHwgCXuzQQJAGpAT0EZWdk2KYQHV2YriFVpMe5BtO9LAyble9eCAq8aEgFVNUmH216dlfLmMfMQ5/Sv5TDSGL2CJOWjjuLy6bg=="
@@ -119,7 +120,7 @@
 }
 
 
--(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey{
+-(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey {
     self.partner = parnter;
     self.seller = seller;
     //    order.tradeNO = [Order generateTradeNO];//[self generateTradeNO]; //订单ID（由商家自行制定）
@@ -155,17 +156,25 @@
                        orderSpec, signedString, @"RSA"];
         NSLog(@"hello string\n%@",orderString);
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-            NSArray* views = [[UIApplication sharedApplication] windows];
-            UIWindow* windowtemp = views[0];
-            NSLog(@"web views %ld",views.count);
-            if (!windowtemp.hidden) {
-                windowtemp.hidden = YES;
-            }
-            else
-            {
-                NSLog(@"no hidden");
-            }
+            
+            int resultStatus = resultDic[@"resultStatus"];
+            NSLog(@"reslut = %@ %d",resultDic,resultStatus);
+            
+//            resultDic.
+//            int resultStatus = resultDic.
+            //resultStatus = 6001; 操作已经取消
+            //9000;已支付
+            
+//            NSArray* views = [[UIApplication sharedApplication] windows];
+//            UIWindow* windowtemp = views[0];
+//            NSLog(@"web views %ld",views.count);
+//            if (!windowtemp.hidden) {
+//                windowtemp.hidden = YES;
+//            }
+//            else
+//            {
+//                NSLog(@"no hidden");
+//            }
         }];
     }
 }

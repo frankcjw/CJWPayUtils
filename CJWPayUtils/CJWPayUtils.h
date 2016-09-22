@@ -10,6 +10,14 @@
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
 
+
+
+typedef void (^CJWPaySuccessBlock)(id response);
+typedef void (^CJWPayFailBlock)();
+typedef void (^CJWPayBlock)();
+
+
+
 @interface CJWPayAlipayInfo : NSObject
 
 @property (copy, nonatomic) NSString *privateKey;

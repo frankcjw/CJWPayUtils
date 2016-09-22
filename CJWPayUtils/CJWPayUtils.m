@@ -15,9 +15,9 @@
 #import "OpenSSL/pem.h"
 #import "OpenSSL/bio.h"
 #import "OpenSSL/sha.h"
- 
+
 //#include <string.h>
-#import "DataSigner.h" 
+#import "DataSigner.h"
 
 
 #define PRIVATE_KEY @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKGrVXJpc3MbZBbBpbBFYZj8a6+Z3FYGH7CtjVKB8FvsTswMr8o4F0jsurWRcDMoVNgIh3+HilBDQSIfDxliAWbCENK0XMwJOriJE31L4FHbtTGLo5jf2hf9qMMhzCCqZTj/lRlnU9GPIBT39l4QSX34RUELrgp3U8ugCzB430yRAgMBAAECgYB0CQM1MRaZ4Wj/JFIFqGaaZWHtEWOhopeQOaCbPYQEliEgN2Lco1GjF7YSp6Z+MU5kGAsYr3HIldzj3qL5tuwFbs7PePhoSdQxLiM5b0fzX0+B2ABqZfllUfN+QEJdiqqWRhG11xoS0hOqHcJQKFKWLy5ADioMBh7k739NPTgPIQJBANGY1k2ubws17ssjSPTfy063eqzYPCjo6RcJUIcgGZtKthyDD9Vtu4H4RnV6jFUJ7qAylE9yyNkyWAwdebJRVMUCQQDFdiJNn/pBOtYo4+r2ad2DeROZyIIXSOWbJ2txfco6oZj9kG6veSmGBJJMS/WMxuYkDVLV18dptxypE5QHR41dAkEAyORD65rYZhdgdKWyRLrH4//qfgaXyuJKn0DXRVyYDocSe8uG/ps5kL5F0k4OeWeWp0czbd7n8X3WdG4/+ZEIvQJAaKikpeAVFF3LBQFImDKkZfrWmLvdt9m7WPEb0ZuKhGkCXeMfx4HAsHfb0vSvwV3qvVEShqVH3JBhcHwgCXuzQQJAGpAT0EZWdk2KYQHV2YriFVpMe5BtO9LAyble9eCAq8aEgFVNUmH216dlfLmMfMQ5/Sv5TDSGL2CJOWjjuLy6bg=="
@@ -38,9 +38,9 @@
 
 
 -(void)setupAlipay:(CJWPayAlipayInfo *)info{
-//    NSLog(@"key %@ %@",info.privateKey,info.partner);
+    //    NSLog(@"key %@ %@",info.privateKey,info.partner);
     self.alipayInfo = info;
-//    NSLog(@"key %@",_alipayInfo.privateKey);
+    //    NSLog(@"key %@",_alipayInfo.privateKey);
 }
 
 
@@ -64,7 +64,7 @@
     }else{
         NSLog(@"pay fail");
     }
-
+    
 }
 
 -(void)payByAliay2{
@@ -145,7 +145,7 @@
             NSLog(@"reslut = %@",resultDic);
         }];
     }
-
+    
 }
 
 -(void)payByAliay{
@@ -169,9 +169,9 @@
     order.itBPay = @"30m"; //交易超时
     order.showUrl = @"m.alipay.com";
     //-------------------------------------------------------------
-
+    
     NSString *appScheme = _alipayInfo.appScheme;
-
+    
     // NOTE: 支付接口名称
     order.method = @"alipay.trade.app.pay";
     
@@ -206,26 +206,26 @@
     
     NSLog(@"orderSpec = %@",orderSpec);
     NSLog(@"orderInfo = %@",orderInfo);
-
+    
     
     if (orderInfo == NULL) {
         NSLog(@"order info null");
         return ;
     }
-//    if (orderInfo == NULL) {
-//        orderInfo = orderSpec;
-//    }
-//    orderInfo = orderSpec;
-//    orderInfoEncoded = orderSpec;
+    //    if (orderInfo == NULL) {
+    //        orderInfo = orderSpec;
+    //    }
+    //    orderInfo = orderSpec;
+    //    orderInfoEncoded = orderSpec;
     
-
+    
     
     id<DataSigner> signer = CreateRSADataSigner(PRIVATE_KEY);
     NSString *signedString = [signer signString:orderInfo];
     
     if (signedString != nil) {
         //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-//        NSString *appScheme = @"alisdkdemo";
+        //        NSString *appScheme = @"alisdkdemo";
         
         // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=%@",
@@ -233,8 +233,8 @@
         /**
          *  从旧方法里周到的
          */
-//        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-//                       orderSpec, signedString, @"RSA"];
+        //        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+        //                       orderSpec, signedString, @"RSA"];
         NSLog(@"orderString %@",orderString);
         // NOTE: 调用支付结果开始支付
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
@@ -245,16 +245,16 @@
 }
 
 -(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail{
-//    CJWPayOrder* order = [CJWPayOrder new];
-
+    //    CJWPayOrder* order = [CJWPayOrder new];
+    
     switch (type) {
-        case CJWPayTypeAlipay:
+            case CJWPayTypeAlipay:
             [self payByAliay2];
             break;
         default:
             break;
     }
-
+    
 }
 
 -(void)initPay{
@@ -279,6 +279,8 @@
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
+    
+    [WXApi handleOpenURL:url delegate:self];
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -330,7 +332,7 @@
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *reponse = (PayResp*)resp;
         switch (reponse.errCode) {
-            case WXSuccess:
+                case WXSuccess:
                 NSLog(@"wechat pay success");
                 break;
                 
