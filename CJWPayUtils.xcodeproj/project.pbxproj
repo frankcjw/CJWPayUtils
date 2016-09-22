@@ -32,7 +32,6 @@
 		01662FF41D91316D00F0898F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01662FF11D91316D00F0898F /* AlipaySDK.framework */; };
 		01662FFC1D91354200F0898F /* CJWAliOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 01662FFB1D91354200F0898F /* CJWAliOrder.m */; };
 		016630021D9136CF00F0898F /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 016630011D9136CF00F0898F /* Order.m */; };
-		016630041D91378800F0898F /* CJWSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016630031D91378800F0898F /* CJWSwift.swift */; };
 		017113C91D65671700FD7E18 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113B91D65671700FD7E18 /* base64.m */; };
 		017113CA1D65671700FD7E18 /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113BC1D65671700FD7E18 /* DataSigner.m */; };
 		017113CB1D65671700FD7E18 /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113BE1D65671700FD7E18 /* DataVerifier.m */; };
@@ -43,7 +42,6 @@
 		017113D01D65671700FD7E18 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 017113C81D65671700FD7E18 /* RSADataVerifier.m */; };
 		0171141F1D65677B00FD7E18 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171141D1D65677B00FD7E18 /* libcrypto.a */; };
 		017114201D65677B00FD7E18 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171141E1D65677B00FD7E18 /* libssl.a */; };
-		01DFBC5D1D9161430002E348 /* CJWOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DFBC5C1D9161430002E348 /* CJWOrder.swift */; };
 		B9E83400C36975B77B63AB59 /* Pods_CJWPayUtilsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D59E448CBE3C01ED21872F6C /* Pods_CJWPayUtilsTests.framework */; };
 		DEAD3AC426DB0D4FEB751F9B /* Pods_CJWPayUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BF11629830AB15D51545CE /* Pods_CJWPayUtils.framework */; };
 /* End PBXBuildFile section */
@@ -95,7 +93,6 @@
 		01662FFB1D91354200F0898F /* CJWAliOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJWAliOrder.m; sourceTree = "<group>"; };
 		016630001D9136CF00F0898F /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		016630011D9136CF00F0898F /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		016630031D91378800F0898F /* CJWSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJWSwift.swift; sourceTree = "<group>"; };
 		017113B81D65671700FD7E18 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		017113B91D65671700FD7E18 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
 		017113BA1D65671700FD7E18 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -190,7 +187,6 @@
 		0171141C1D65677500FD7E18 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
 		0171141D1D65677B00FD7E18 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		0171141E1D65677B00FD7E18 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		01DFBC5C1D9161430002E348 /* CJWOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJWOrder.swift; sourceTree = "<group>"; };
 		03BF11629830AB15D51545CE /* Pods_CJWPayUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CJWPayUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41856ACADE2B67511BC10CA0 /* Pods-CJWPayUtilsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJWPayUtilsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CJWPayUtilsTests/Pods-CJWPayUtilsTests.release.xcconfig"; sourceTree = "<group>"; };
 		B200F2DDAF4D593DD0463746 /* Pods-CJWPayUtils.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJWPayUtils.release.xcconfig"; path = "Pods/Target Support Files/Pods-CJWPayUtils/Pods-CJWPayUtils.release.xcconfig"; sourceTree = "<group>"; };
@@ -282,8 +278,6 @@
 				010A02D81D6AA2A30064BF15 /* libWeChatSDK.a */,
 				010A02D91D6AA2A30064BF15 /* WXApi.h */,
 				010A02DA1D6AA2A30064BF15 /* WXApiObject.h */,
-				016630031D91378800F0898F /* CJWSwift.swift */,
-				01DFBC5C1D9161430002E348 /* CJWOrder.swift */,
 				017113D11D65677500FD7E18 /* openssl */,
 				017113B71D65671700FD7E18 /* Util */,
 				010201C61D6434730079835F /* AppDelegate.swift */,
@@ -646,14 +640,12 @@
 			files = (
 				01662FFC1D91354200F0898F /* CJWAliOrder.m in Sources */,
 				017113C91D65671700FD7E18 /* base64.m in Sources */,
-				016630041D91378800F0898F /* CJWSwift.swift in Sources */,
 				017113CD1D65671700FD7E18 /* NSDataEx.m in Sources */,
 				017113CC1D65671700FD7E18 /* MD5DataSigner.m in Sources */,
 				016630021D9136CF00F0898F /* Order.m in Sources */,
 				017113D01D65671700FD7E18 /* RSADataVerifier.m in Sources */,
 				01014EE21D644BB40035131D /* CJWPayUtils.m in Sources */,
 				017113CA1D65671700FD7E18 /* DataSigner.m in Sources */,
-				01DFBC5D1D9161430002E348 /* CJWOrder.swift in Sources */,
 				017113CF1D65671700FD7E18 /* RSADataSigner.m in Sources */,
 				017113CE1D65671700FD7E18 /* openssl_wrapper.m in Sources */,
 				010201C91D6434730079835F /* ViewController.swift in Sources */,

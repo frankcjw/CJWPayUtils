@@ -1,4 +1,4 @@
-//
+ //
 //  CJWPayUtils.m
 //  CJWPayUtils
 //
@@ -18,6 +18,7 @@
 
 //#include <string.h>
 #import "DataSigner.h"
+#import "Order.h"
 
 
 #define PRIVATE_KEY @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKGrVXJpc3MbZBbBpbBFYZj8a6+Z3FYGH7CtjVKB8FvsTswMr8o4F0jsurWRcDMoVNgIh3+HilBDQSIfDxliAWbCENK0XMwJOriJE31L4FHbtTGLo5jf2hf9qMMhzCCqZTj/lRlnU9GPIBT39l4QSX34RUELrgp3U8ugCzB430yRAgMBAAECgYB0CQM1MRaZ4Wj/JFIFqGaaZWHtEWOhopeQOaCbPYQEliEgN2Lco1GjF7YSp6Z+MU5kGAsYr3HIldzj3qL5tuwFbs7PePhoSdQxLiM5b0fzX0+B2ABqZfllUfN+QEJdiqqWRhG11xoS0hOqHcJQKFKWLy5ADioMBh7k739NPTgPIQJBANGY1k2ubws17ssjSPTfy063eqzYPCjo6RcJUIcgGZtKthyDD9Vtu4H4RnV6jFUJ7qAylE9yyNkyWAwdebJRVMUCQQDFdiJNn/pBOtYo4+r2ad2DeROZyIIXSOWbJ2txfco6oZj9kG6veSmGBJJMS/WMxuYkDVLV18dptxypE5QHR41dAkEAyORD65rYZhdgdKWyRLrH4//qfgaXyuJKn0DXRVyYDocSe8uG/ps5kL5F0k4OeWeWp0czbd7n8X3WdG4/+ZEIvQJAaKikpeAVFF3LBQFImDKkZfrWmLvdt9m7WPEb0ZuKhGkCXeMfx4HAsHfb0vSvwV3qvVEShqVH3JBhcHwgCXuzQQJAGpAT0EZWdk2KYQHV2YriFVpMe5BtO9LAyble9eCAq8aEgFVNUmH216dlfLmMfMQ5/Sv5TDSGL2CJOWjjuLy6bg=="
@@ -34,6 +35,13 @@
 
 @end
 
+
+@interface CJWPayUtils()
+
+@property CJWPayBlock success;
+@property CJWPayBlock fail;
+
+@end
 @implementation CJWPayUtils
 
 
@@ -67,8 +75,24 @@
     
 }
 
--(void)payByAliay2{
+-(void)payByAli:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey tradeNO:(NSString *)tradeNO{
+    Order *order = [[Order alloc]init];
+    order.tradeNO = tradeNO;
+    [order sendOrder:parnter seller:seller productName:productName productDescription:productDescription notifyURL:notifyURL appScheme:appScheme amount:amount privateKey:privateKey];
     
+}
+
+-(void)payByWechat:(NSString *)appid partnerId:(NSString *)partnerId prepayId:(NSString *)prepayId nonceStr:(NSString *)nonceStr  timeStamp:(NSString *)timeStamp  package:(NSString *)package  sign:(NSString *)sign{
+    [WXApi registerApp:appid];
+    PayReq *req = [[PayReq alloc] init];
+    req.partnerId = partnerId;
+    req.prepayId = prepayId;
+    req.nonceStr = nonceStr;
+    unsigned int time = [[NSNumber numberWithInteger:[timeStamp integerValue]] unsignedIntValue];
+    req.timeStamp = time;
+    req.package = package;
+    req.sign = sign;
+    [WXApi sendReq:req];
 }
 
 -(void)payByAliay{
@@ -167,12 +191,17 @@
     
 }
 
+-(void)setupCallBack:(CJWPayBlock)success fail:(CJWPayBlock)fail{
+    self.success =success;
+    self.fail =fail;
+}
+
 -(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail{
     //    CJWPayOrder* order = [CJWPayOrder new];
     
     switch (type) {
-            case CJWPayTypeAlipay:
-            [self payByAliay2];
+        case CJWPayTypeAlipay:
+            //            [self payByAliay2];
             break;
         default:
             break;
@@ -207,7 +236,15 @@
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            NSLog(@"reslut = %@-%@",resultDic,resultStatus);
+            if ([resultStatus isEqualToString:@"9000"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPaySuccess" object:NULL];
+                _success();
+            }else{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayFail" object:NULL];
+                _fail();
+            }
         }];
     }
     return YES;
@@ -255,12 +292,15 @@
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *reponse = (PayResp*)resp;
         switch (reponse.errCode) {
-                case WXSuccess:
+            case WXSuccess:
                 NSLog(@"wechat pay success");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPaySuccess" object:NULL];
+                _success();
                 break;
-                
             default:
                 NSLog(@"wechat pay fail");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayFail" object:NULL];
+                _fail();
                 break;
         }
     }

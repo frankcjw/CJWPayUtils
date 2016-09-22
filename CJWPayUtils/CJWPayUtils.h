@@ -35,6 +35,8 @@ typedef void (^CJWPayBlock)();
 //@property (strong, nonatomic) NSString *appScheme;
 //@property (strong, nonatomic) NSString *appScheme;
 
+
+
 @end
 
 
@@ -62,12 +64,12 @@ typedef NS_ENUM (NSInteger,CJWPayType){
 };
 
 
--(void)setupAlipay:(CJWPayAlipayInfo *)info;
--(void)setupWXPay:(CJWWXPayInfo *)info;
+//-(void)setupAlipay:(CJWPayAlipayInfo *)info;
+//-(void)setupWXPay:(CJWWXPayInfo *)info;
 
--(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail;
-
--(void)initPay;
+//-(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail;
+//
+//-(void)initPay;
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -76,7 +78,15 @@ typedef NS_ENUM (NSInteger,CJWPayType){
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options;
 
+-(void)payByAli:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey;
+
+-(void)payByAli:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey tradeNO:(NSString *)tradeNO;
+
+-(void)payByWechat:(NSString *)appid partnerId:(NSString *)partnerId prepayId:(NSString *)prepayId nonceStr:(NSString *)nonceStr  timeStamp:(NSString *)timeStamp  package:(NSString *)package  sign:(NSString *)sign;
+
 +(instancetype)manager;
+
+-(void)setupCallBack:(CJWPayBlock)success fail:(CJWPayBlock)fail;
 
 @end
 

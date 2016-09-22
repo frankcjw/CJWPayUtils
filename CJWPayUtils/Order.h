@@ -10,7 +10,6 @@
 
 typedef void (^CJWPayBlock)();
 
-
 @interface Order : NSObject
 
 @property(nonatomic, copy) NSString * partner;
@@ -39,7 +38,7 @@ typedef void (^CJWPayBlock)();
 
 + (NSString *)generateTradeNO;
 
-//-(void)sendOrder;
+-(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey success:(CJWPayBlock)success fail:(CJWPayBlock)fail;
 -(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey;
 
 @end
