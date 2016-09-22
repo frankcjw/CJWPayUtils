@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^CJWPayBlock)();
+
+
 @interface Order : NSObject
 
 @property(nonatomic, copy) NSString * partner;
@@ -36,7 +39,7 @@
 
 + (NSString *)generateTradeNO;
 
--(void)sendOrder;
+//-(void)sendOrder;
 -(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey;
 
 @end

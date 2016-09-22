@@ -74,51 +74,7 @@ typedef void (^CJWPayBlock)();
 	}
 	return discription;
 }
-
-
--(void)newOrder{
-    NSString *privateKey = @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKGrVXJpc3MbZBbBpbBFYZj8a6+Z3FYGH7CtjVKB8FvsTswMr8o4F0jsurWRcDMoVNgIh3+HilBDQSIfDxliAWbCENK0XMwJOriJE31L4FHbtTGLo5jf2hf9qMMhzCCqZTj/lRlnU9GPIBT39l4QSX34RUELrgp3U8ugCzB430yRAgMBAAECgYB0CQM1MRaZ4Wj/JFIFqGaaZWHtEWOhopeQOaCbPYQEliEgN2Lco1GjF7YSp6Z+MU5kGAsYr3HIldzj3qL5tuwFbs7PePhoSdQxLiM5b0fzX0+B2ABqZfllUfN+QEJdiqqWRhG11xoS0hOqHcJQKFKWLy5ADioMBh7k739NPTgPIQJBANGY1k2ubws17ssjSPTfy063eqzYPCjo6RcJUIcgGZtKthyDD9Vtu4H4RnV6jFUJ7qAylE9yyNkyWAwdebJRVMUCQQDFdiJNn/pBOtYo4+r2ad2DeROZyIIXSOWbJ2txfco6oZj9kG6veSmGBJJMS/WMxuYkDVLV18dptxypE5QHR41dAkEAyORD65rYZhdgdKWyRLrH4//qfgaXyuJKn0DXRVyYDocSe8uG/ps5kL5F0k4OeWeWp0czbd7n8X3WdG4/+ZEIvQJAaKikpeAVFF3LBQFImDKkZfrWmLvdt9m7WPEb0ZuKhGkCXeMfx4HAsHfb0vSvwV3qvVEShqVH3JBhcHwgCXuzQQJAGpAT0EZWdk2KYQHV2YriFVpMe5BtO9LAyble9eCAq8aEgFVNUmH216dlfLmMfMQ5/Sv5TDSGL2CJOWjjuLy6bg==";
-    NSString *partner = @"2088312938260884";
-    NSString *seller = @"mark@yangtai.com";
-    
-    Order *order = [[Order alloc] init];
-    order.partner = partner;
-    order.seller = seller;
-    order.tradeNO = [Order generateTradeNO];//[self generateTradeNO]; //订单ID（由商家自行制定）
-    order.productName = @"岑嘉文买东西的标题";// product.subject; //商品标题
-    order.productDescription = @"商铺描述描述";//product.body; //商品描述
-    order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
-    order.notifyURL =  @"http://www.cenjiawen.com"; //回调URL
-    
-    order.service = @"mobile.securitypay.pay";
-    order.paymentType = @"1";// 支付类型， 固定值
-    order.inputCharset = @"utf-8";
-    order.itBPay = @"30m"; //交易超时
-    order.showUrl = @"m.alipay.com";
-    
-    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"VIPCardPool";
-    
-    //将商品信息拼接成字符串
-    NSString *orderSpec = [order description];
-    NSLog(@"orderSpec = %@",orderSpec);
-    
-    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
-    id<DataSigner> signer = CreateRSADataSigner(privateKey);
-    NSString *signedString = [signer signString:orderSpec];
-    
-    //将签名成功字符串格式化为订单字符串,请严格按照该格式
-    NSString *orderString = nil;
-    if (signedString != nil) {
-        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-                       orderSpec, signedString, @"RSA"];
-        
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-        }];
-    }
-}
-
+ 
 
 -(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey {
     self.partner = parnter;
@@ -154,11 +110,12 @@ typedef void (^CJWPayBlock)();
     if (signedString != nil) {
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                        orderSpec, signedString, @"RSA"];
-        NSLog(@"hello string\n%@",orderString);
+//        NSLog(@"hello string\n%@",orderString);
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             
+            NSLog(@"fiuck this ");
             int resultStatus = resultDic[@"resultStatus"];
-            NSLog(@"reslut = %@ %d",resultDic,resultStatus);
+            NSLog(@"reslut = %@-%d",resultDic,resultStatus);
             
 //            resultDic.
 //            int resultStatus = resultDic.
@@ -177,65 +134,7 @@ typedef void (^CJWPayBlock)();
 //            }
         }];
     }
-}
-
--(void)sendOrder{
-    self.partner = PARTNER;
-    self.seller = SELLER;
-    //    order.tradeNO = [Order generateTradeNO];//[self generateTradeNO]; //订单ID（由商家自行制定）
-    self.productName = @"卡仆充值";// product.subject; //商品标题
-    self.productDescription = @"卡仆充值";//product.body; //商品描述
-    self.productDescription = [NSString stringWithFormat:@"卡仆充值%@元",self.amount];
-//    self.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
-//    self.notifyURL =  @"http://121.42.46.55:8080/vipmodule/order/alipay/api.do"; //回调URL
-    self.notifyURL = @"http://www.cardpool.cc:8080/vipmodule/payorder/alipay/api.do";
-    self.service = @"mobile.securitypay.pay";
-    self.paymentType = @"1";// 支付类型， 固定值
-    self.inputCharset = @"utf-8";
-    self.itBPay = @"30m"; //交易超时
-    self.showUrl = @"m.alipay.com";
-    
-    
-    
-    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"Yravel";
-    
-    //将商品信息拼接成字符串
-    NSString *orderSpec = [self description];
-    NSLog(@"orderSpec = %@",orderSpec);
-    
-    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
-    id<DataSigner> signer = CreateRSADataSigner(PRIVATE_KEY);
-    NSString *signedString = [signer signString:orderSpec];
-    
-    //将签名成功字符串格式化为订单字符串,请严格按照该格式
-    NSString *orderString = nil;
-    if (signedString != nil) {
-        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-                       orderSpec, signedString, @"RSA"];
-        NSLog(@"hello string\n%@",orderString);
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-            NSArray* views = [[UIApplication sharedApplication] windows];
-            UIWindow* windowtemp = views[0];
-            NSLog(@"web views %ld",views.count);
-            if (!windowtemp.hidden) {
-                windowtemp.hidden = YES;
-            }
-            else
-            {
-                NSLog(@"no hidden");
-            }
-        }];
-    }
-}
-
-+(void)sendOrder:(Order *)order{
-    
-    
-    
-}
-
+} 
 
 + (void)checkAccount{
 //    BOOL hasAuthorized = [[AlipaySDK defaultService] isLogined];
