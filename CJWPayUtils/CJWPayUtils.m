@@ -40,6 +40,7 @@
 
 @property CJWPayBlock success;
 @property CJWPayBlock fail;
+@property CJWPayBlock cancel;
 
 @end
 @implementation CJWPayUtils
@@ -191,9 +192,10 @@
     
 }
 
--(void)setupCallBack:(CJWPayBlock)success fail:(CJWPayBlock)fail{
-    self.success =success;
-    self.fail =fail;
+-(void)setupCallBack:(CJWPayBlock)success cancel:(CJWPayBlock)cancel fail:(CJWPayBlock)fail{
+    self.success = success;
+    self.fail = fail;
+    self.cancel = cancel;
 }
 
 -(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail{
@@ -239,11 +241,11 @@
             NSString *resultStatus = resultDic[@"resultStatus"];
             NSLog(@"reslut = %@-%@",resultDic,resultStatus);
             if ([resultStatus isEqualToString:@"9000"]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPaySuccess" object:NULL];
-                _success();
+                [self paySuccess];
+            }else if ([resultStatus isEqualToString:@"6001"]) {
+                [self payCancel];
             }else{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayFail" object:NULL];
-                _fail();
+                [self payFail];
             }
         }];
     }
@@ -287,23 +289,48 @@
     NSLog(@"on req");
 }
 
+
+-(void)paySuccess{
+    NSLog(@"paySuccess");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPaySuccess" object:NULL];
+    if (self.success != NULL) {
+        _success();
+    }
+}
+
+-(void)payCancel{
+    NSLog(@"payCancel");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayCancel" object:NULL];
+    if (self.cancel != NULL) {
+        _cancel();
+    }
+ }
+
+-(void)payFail{
+    NSLog(@"payFail");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayFail" object:NULL];
+    if (self.fail != NULL) {
+        _fail();
+    }
+ }
+
 -(void)onResp:(BaseResp *)resp{
     NSLog(@"on resp");
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *reponse = (PayResp*)resp;
         switch (reponse.errCode) {
             case WXSuccess:
-                NSLog(@"wechat pay success");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPaySuccess" object:NULL];
-                _success();
+                 [self paySuccess];
+                break;
+            case WXErrCodeUserCancel:
+                 [self payCancel];
                 break;
             default:
-                NSLog(@"wechat pay fail");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"OnPayFail" object:NULL];
-                _fail();
+                 [self payFail];
                 break;
         }
     }
 }
 
 @end
+

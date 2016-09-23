@@ -86,7 +86,7 @@ typedef NS_ENUM (NSInteger,CJWPayType){
 
 +(instancetype)manager;
 
--(void)setupCallBack:(CJWPayBlock)success fail:(CJWPayBlock)fail;
+-(void)setupCallBack:(CJWPayBlock)success cancel:(CJWPayBlock)cancel fail:(CJWPayBlock)fail;
 
 @end
 
