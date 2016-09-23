@@ -54,7 +54,7 @@
 
 
 -(void)setupWXPay:(CJWWXPayInfo *)info{
-    [WXApi registerApp:info.wxid withDescription:@"fuck"];
+    [WXApi registerApp:info.wxid withDescription:@"2.0"];
 }
 
 
@@ -93,7 +93,10 @@
     req.timeStamp = time;
     req.package = package;
     req.sign = sign;
-    [WXApi sendReq:req];
+    if ([WXApi sendReq:req]) {
+    } else{
+        [self payFail];
+    };
 }
 
 -(void)payByAliay{
@@ -287,7 +290,7 @@
 // MARK: - 微信支付回调
 -(void)onReq:(BaseReq *)req{
     NSLog(@"on req");
-}
+ }
 
 
 -(void)paySuccess{

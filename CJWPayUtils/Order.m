@@ -75,8 +75,7 @@
 }
 
 -(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey success:(CJWPayBlock)success fail:(CJWPayBlock)fail{
-    NSLog(@"fuck this");
-    self.partner = parnter;
+     self.partner = parnter;
     self.seller = seller;
     //    order.tradeNO = [Order generateTradeNO];//[self generateTradeNO]; //订单ID（由商家自行制定）
     self.productName = productName;// product.subject; //商品标题
