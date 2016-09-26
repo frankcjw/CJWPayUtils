@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^CJWPayBlock)();
+typedef void(^CompletionBlock)(NSDictionary *resultDic);
 
 @interface Order : NSObject
 
@@ -39,6 +40,6 @@ typedef void (^CJWPayBlock)();
 + (NSString *)generateTradeNO;
 
 -(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey success:(CJWPayBlock)success fail:(CJWPayBlock)fail;
--(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey;
+-(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey callback:(CompletionBlock)completionBlock;
 
 @end

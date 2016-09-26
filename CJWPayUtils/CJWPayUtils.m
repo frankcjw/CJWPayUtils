@@ -46,16 +46,14 @@
 @implementation CJWPayUtils
 
 
--(void)setupAlipay:(CJWPayAlipayInfo *)info{
-    //    NSLog(@"key %@ %@",info.privateKey,info.partner);
-    self.alipayInfo = info;
-    //    NSLog(@"key %@",_alipayInfo.privateKey);
-}
-
-
--(void)setupWXPay:(CJWWXPayInfo *)info{
-    [WXApi registerApp:info.wxid withDescription:@"2.0"];
-}
+//-(void)setupAlipay:(CJWPayAlipayInfo *)info{
+//     self.alipayInfo = info;
+// }
+//
+//
+//-(void)setupWXPay:(CJWWXPayInfo *)info{
+//    [WXApi registerApp:info.wxid withDescription:@"2.0"];
+//}
 
 
 -(void)payByWeChat:(NSString *)appid noncestr:(NSString *)noncestr package:(NSString *)package partnerid:(NSString *)partnerid prepayid:(NSString *)prepayid sign:(NSString *)sign timestamp:(NSString *)timestamp {
@@ -79,7 +77,9 @@
 -(void)payByAli:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey tradeNO:(NSString *)tradeNO{
     Order *order = [[Order alloc]init];
     order.tradeNO = tradeNO;
-    [order sendOrder:parnter seller:seller productName:productName productDescription:productDescription notifyURL:notifyURL appScheme:appScheme amount:amount privateKey:privateKey];
+    [order sendOrder:parnter seller:seller productName:productName productDescription:productDescription notifyURL:notifyURL appScheme:appScheme amount:amount privateKey:privateKey callback:^(NSDictionary *resultDic) {
+        [self processAliBlock:resultDic];
+    }];
     
 }
 
@@ -98,126 +98,13 @@
         [self payFail];
     };
 }
-
--(void)payByAliay{
-    CJWPayOrder* order = [CJWPayOrder new];
-    
-    NSString *tradeNO = [self generateTradeNO];
-    NSString *notifyURL = _alipayInfo.notifyURL;
-    // NOTE: app_id设置
-    order.app_id = _alipayInfo.appID;
-    //-----------------旧版本信息-----------------------------------
-    order.partner = _alipayInfo.partner;
-    order.seller = _alipayInfo.seller;
-    order.tradeNO = tradeNO;
-    order.productName = @"CJWPay Testing";
-    order.productDescription = @"Pay Description";
-    order.amount = @"0.01";
-    order.notifyURL = notifyURL;
-    order.service = @"mobile.securitypay.pay";
-    order.paymentType = @"1";// 支付类型， 固定值
-    order.inputCharset = @"utf-8";
-    order.itBPay = @"30m"; //交易超时
-    order.showUrl = @"m.alipay.com";
-    //-------------------------------------------------------------
-    
-    NSString *appScheme = _alipayInfo.appScheme;
-    
-    // NOTE: 支付接口名称
-    order.method = @"alipay.trade.app.pay";
-    
-    // NOTE: 参数编码格式
-    order.charset = @"utf-8";
-    
-    // NOTE: 当前时间点
-    NSDateFormatter* formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    order.timestamp = [formatter stringFromDate:[NSDate date]];
-    
-    // NOTE: 支付版本
-    order.version = @"1.0";
-    
-    // NOTE: sign_type设置
-    order.sign_type = @"RSA";
-    
-    // NOTE: 商品数据
-    order.biz_content = [BizContent new];
-    order.biz_content.body = @"我是测试数据";
-    order.biz_content.subject = @"1";
-    order.biz_content.out_trade_no = [self generateTradeNO]; //订单ID（由商家自行制定）
-    order.biz_content.timeout_express = @"30m"; //超时时间设置
-    order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
-    order.biz_content.seller_id = _alipayInfo.seller;
-    
-    //将商品信息拼接成字符串
-    NSString *orderInfo = [order orderInfoEncoded:NO];
-    NSString *orderInfoEncoded = [order orderInfoEncoded:YES];
-    NSString *orderSpec = [order description];
-    
-    
-    NSLog(@"orderSpec = %@",orderSpec);
-    NSLog(@"orderInfo = %@",orderInfo);
-    
-    
-    if (orderInfo == NULL) {
-        NSLog(@"order info null");
-        return ;
-    }
-    //    if (orderInfo == NULL) {
-    //        orderInfo = orderSpec;
-    //    }
-    //    orderInfo = orderSpec;
-    //    orderInfoEncoded = orderSpec;
-    
-    
-    
-    id<DataSigner> signer = CreateRSADataSigner(PRIVATE_KEY);
-    NSString *signedString = [signer signString:orderInfo];
-    
-    if (signedString != nil) {
-        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        //        NSString *appScheme = @"alisdkdemo";
-        
-        // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
-        NSString *orderString = [NSString stringWithFormat:@"%@&sign=%@",
-                                 orderInfoEncoded, signedString];
-        /**
-         *  从旧方法里周到的
-         */
-        //        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-        //                       orderSpec, signedString, @"RSA"];
-        NSLog(@"orderString %@",orderString);
-        // NOTE: 调用支付结果开始支付
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"\nreslut = %@",resultDic);
-        }];
-    }
-    
-}
-
+ 
 -(void)setupCallBack:(CJWPayBlock)success cancel:(CJWPayBlock)cancel fail:(CJWPayBlock)fail{
     self.success = success;
     self.fail = fail;
     self.cancel = cancel;
 }
 
--(void)pay:(NSString*)amount type:(CJWPayType)type success:(CJWBlock)success fail:(CJWBlock)fail{
-    //    CJWPayOrder* order = [CJWPayOrder new];
-    
-    switch (type) {
-        case CJWPayTypeAlipay:
-            //            [self payByAliay2];
-            break;
-        default:
-            break;
-    }
-    
-}
-
--(void)initPay{
-    //    alip
-    [AlipaySDK defaultService];
-}
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -241,18 +128,27 @@
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSString *resultStatus = resultDic[@"resultStatus"];
-            NSLog(@"reslut = %@-%@",resultDic,resultStatus);
-            if ([resultStatus isEqualToString:@"9000"]) {
-                [self paySuccess];
-            }else if ([resultStatus isEqualToString:@"6001"]) {
-                [self payCancel];
-            }else{
-                [self payFail];
-            }
+            [self processAliBlock:resultDic];
         }];
     }
     return YES;
+}
+
+/**
+ *  处理支付宝支付回调
+ *
+ *  @param resultDic resultDic description
+ */
+-(void)processAliBlock:(NSDictionary *)resultDic{
+    NSString *resultStatus = resultDic[@"resultStatus"];
+    NSLog(@"reslut = %@-%@",resultDic,resultStatus);
+    if ([resultStatus isEqualToString:@"9000"]) {
+        [self paySuccess];
+    }else if ([resultStatus isEqualToString:@"6001"]) {
+        [self payCancel];
+    }else{
+        [self payFail];
+    }
 }
 
 +(instancetype)manager{
@@ -317,8 +213,13 @@
     }
  }
 
+
+/**
+ *  微信支付回调
+ *
+ *  @param resp resp description
+ */
 -(void)onResp:(BaseResp *)resp{
-    NSLog(@"on resp");
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *reponse = (PayResp*)resp;
         switch (reponse.errCode) {

@@ -115,7 +115,7 @@
     }
 }
 
--(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey {
+-(void)sendOrder:(NSString *)parnter seller:(NSString *)seller productName:(NSString *)productName productDescription:(NSString *)productDescription notifyURL:(NSString *)notifyURL appScheme:(NSString *)appScheme amount:(NSString *)amount privateKey:(NSString *)privateKey callback:(CompletionBlock)completionBlock{
     self.partner = parnter;
     self.seller = seller;
     self.amount = amount;
@@ -153,25 +153,8 @@
 //        NSLog(@"hello string\n%@",orderString);
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             
-            NSLog(@"fiuck this ");
-            int resultStatus = resultDic[@"resultStatus"];
-            NSLog(@"reslut = %@-%d",resultDic,resultStatus);
-            
-//            resultDic.
-//            int resultStatus = resultDic.
-            //resultStatus = 6001; 操作已经取消
-            //9000;已支付
-            
-//            NSArray* views = [[UIApplication sharedApplication] windows];
-//            UIWindow* windowtemp = views[0];
-//            NSLog(@"web views %ld",views.count);
-//            if (!windowtemp.hidden) {
-//                windowtemp.hidden = YES;
-//            }
-//            else
-//            {
-//                NSLog(@"no hidden");
-//            }
+             int resultStatus = resultDic[@"resultStatus"];
+            completionBlock(resultDic); 
         }];
     }
 } 
