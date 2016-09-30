@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.platform     =  :ios, '8.0'
   s.source       = { :git => "https://github.com/frankcjw/CJWPayUtils.git"  }
   s.exclude_files = 'CJWPayUtils-Bridging-Header.h'
-  s.source_files  = "CJWPayUtils/CJWPayOrder.{h,m}","CJWPayUtils/CJWPayUtils.{h,m}","CJWPayUtils/*.{h,m}","CJWPayUtils/*.swift","CJWOrder.swift"
+  s.source_files  = "CJWPayUtils/CJWPayOrder.{h,m}","CJWPayUtils/CJWPayUtils.{h,m}","CJWPayUtils/*.{h,m}"
   s.ios.vendored_frameworks = 'CJWPayUtils/AlipaySDK.framework'
   s.frameworks   =  'UIKit',"Foundation","CoreGraphics","CoreText","QuartzCore","CoreTelephony","SystemConfiguration","CFNetwork","CoreMotion"
   s.requires_arc = true
