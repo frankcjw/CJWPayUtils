@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = 'CJWPayUtils/AlipaySDK.framework'
   s.frameworks   =  'UIKit',"Foundation","CoreGraphics","CoreText","QuartzCore","CoreTelephony","SystemConfiguration","CFNetwork","CoreMotion"
   s.requires_arc = true
-  s.resource = 'CJWPayUtils/AlipaySDK.bundle','CJWPayUtils/AlipaySDK.framework'
+  s.resource = 'CJWPayUtils/AlipaySDK.bundle','CJWPayUtils/AliLib/AlipaySDK.framework'
   s.vendored_libraries = "CJWPayUtils/libWeChatSDK.a","CJWPayUtils/libUPPayPlugin.a"
   s.libraries = "c++","z","c","sqlite3.0","stdc++.6.0.9"
 
